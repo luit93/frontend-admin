@@ -20,7 +20,7 @@ const initialState = {
   address: "",
   gender: "",
 };
-const AdminRegForm = () => {
+export const AdminRegForm = () => {
   const [newUser, setNewUser] = useState(initialState);
 
   const handleOnChange = (e) => {
@@ -33,6 +33,7 @@ const AdminRegForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    console.log(newUser, "todo, send this data to api");
   };
 
   return (
@@ -40,21 +41,31 @@ const AdminRegForm = () => {
       <Card className="p-5 mt-5" style={{ width: "550px" }}>
         <h1>Registration page</h1>
         <hr />
-        <Form>
+        <Form onSubmit={handleOnSubmit}>
           <Form.Group as={Row} className="mb-3 mt-3">
             <Form.Label column sm="3">
-              First Name
+              First Name *
             </Form.Label>
             <Col sm="9">
-              <Form.Control name="fname" placeholder="First name" />
+              <Form.Control
+                name="fname"
+                placeholder="First name"
+                required
+                onChange={handleOnChange}
+              />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3 mt-3">
             <Form.Label column sm="3">
-              Last Name
+              Last Name *
             </Form.Label>
             <Col sm="9">
-              <Form.Control name="lname" placeholder="Last name" />
+              <Form.Control
+                name="lname"
+                placeholder="Last name"
+                required
+                onChange={handleOnChange}
+              />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3 mt-3">
@@ -62,7 +73,12 @@ const AdminRegForm = () => {
               DOB
             </Form.Label>
             <Col sm="9">
-              <Form.Control name="dob" placeholder="dd/mm/yy" />
+              <Form.Control
+                name="dob"
+                placeholder="dd/mm/yy"
+                type="date"
+                onChange={handleOnChange}
+              />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3 mt-3">
@@ -70,7 +86,11 @@ const AdminRegForm = () => {
               Phone
             </Form.Label>
             <Col sm="9">
-              <Form.Control name="phone" placeholder="0000000" />
+              <Form.Control
+                name="phone"
+                placeholder="0400000000"
+                onChange={handleOnChange}
+              />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3 mt-3">
@@ -78,34 +98,11 @@ const AdminRegForm = () => {
               Address
             </Form.Label>
             <Col sm="9">
-              <Form.Control type="address" placeholder="x st, y ave" />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} className="mb-3 mt-3">
-            <Form.Label column sm="3">
-              Email
-            </Form.Label>
-            <Col sm="9">
-              <Form.Control name="email" placeholder="mail@me" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} className="mb-3 mt-3">
-            <Form.Label column sm="3">
-              Password
-            </Form.Label>
-            <Col sm="9">
-              <Form.Control name="password" placeholder="Password" />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} className="mb-3 mt-3">
-            <Form.Label column sm="3">
-              Confirm Password
-            </Form.Label>
-            <Col sm="9">
-              <Form.Control name="password" placeholder="Confirm Password" />
+              <Form.Control
+                name="address"
+                placeholder="x st, y ave"
+                onChange={handleOnChange}
+              />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3 mt-3">
@@ -114,12 +111,69 @@ const AdminRegForm = () => {
             </Form.Label>
             <Col sm="9">
               <InputGroup>
-                <InputGroup.Radio name="gender" aria-label="Male" />
+                <InputGroup.Radio
+                  name="gender"
+                  aria-label="Male"
+                  value="male"
+                  onChange={handleOnChange}
+                />
                 <Form.Label>Male</Form.Label>
 
-                <InputGroup.Radio name="gender" aria-label="Male" />
+                <InputGroup.Radio
+                  name="gender"
+                  aria-label="Female"
+                  value="female"
+                  onChange={handleOnChange}
+                />
                 <Form.Label>Female</Form.Label>
               </InputGroup>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3 mt-3">
+            <Form.Label column sm="3">
+              Email *
+            </Form.Label>
+            <Col sm="9">
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="mail@me"
+                required
+                onChange={handleOnChange}
+              />
+              <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3 mt-3">
+            <Form.Label column sm="3">
+              Password *
+            </Form.Label>
+            <Col sm="9">
+              <Form.Control
+                name="password"
+                placeholder="Password"
+                type="password"
+                minLength="6"
+                required
+                onChange={handleOnChange}
+              />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3 mt-3">
+            <Form.Label column sm="3">
+              Confirm Password *
+            </Form.Label>
+            <Col sm="9">
+              <Form.Control
+                name="password"
+                placeholder="Confirm password"
+                minLength="6"
+                type="password"
+                required
+                onChange={handleOnChange}
+              />
             </Col>
           </Form.Group>
 
