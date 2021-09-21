@@ -1,12 +1,29 @@
 import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Login from "../src/pages/login/Login";
+import PageNotFound from "../src/components/page-not-found/PageNotFound.js";
+import AdminRegistration from "../src/pages/admin-registration/AdminRegistration";
+import EmailVerification from "../src/pages/email-verification/EmailVerification";
 import { Button } from "react-bootstrap";
 function App() {
   return (
     <div className="App">
-      Hello world!
-      <Button variant="primary">
-        <i class="fas fa-users"></i> User
-      </Button>
+      <Router>
+        <Switch>
+          <Route path="/registration">
+            <AdminRegistration />
+          </Route>
+          <Route path="/email-verification">
+            <EmailVerification />
+          </Route>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route exact path="*">
+            <PageNotFound />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
