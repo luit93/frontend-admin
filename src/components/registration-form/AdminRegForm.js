@@ -10,21 +10,29 @@ import {
   InputGroup,
 } from "react-bootstrap";
 
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "../../pages/admin-user/userAction";
 const initialState = {
   fname: "",
   lname: "",
   dob: "",
   email: "",
   password: "",
+  confirmPassword: "",
   phone: "",
   address: "",
   gender: "",
 };
 export const AdminRegForm = () => {
+  const dispatch = useDispatch();
   const [newUser, setNewUser] = useState(initialState);
-
+  const [passError, setPassError] = useState("");
+  const { isPending, userResp } = useSelector((state) => state.user);
   const handleOnChange = (e) => {
-    const { name, value } = e.target.value;
+    const { name, value } = e.target;
+    if (passError && name === "confirmPassword") {
+      setPassError("");
+    }
     setNewUser({
       ...newUser,
       [name]: value,
@@ -33,6 +41,13 @@ export const AdminRegForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const { password } = newUser;
+    const { confirmPassword, ...usserInfo } = newUser;
+    if (password !== confirmPassword) {
+      return setPassError("Passwords don't match");
+    }
+
+    dispatch(createUser(usserInfo));
     console.log(newUser, "todo, send this data to api");
   };
 
@@ -41,6 +56,12 @@ export const AdminRegForm = () => {
       <Card className="p-5 mt-5" style={{ width: "550px" }}>
         <h1>Registration page</h1>
         <hr />
+        {isPending && <Spinner variant="primary" animation="border" />}
+        {userResp?.message && (
+          <Alert variant={userResp.status === "success" ? "success" : "danger"}>
+            {userResp.message}
+          </Alert>
+        )}
         <Form onSubmit={handleOnSubmit}>
           <Form.Group as={Row} className="mb-3 mt-3">
             <Form.Label column sm="3">
@@ -167,7 +188,7 @@ export const AdminRegForm = () => {
             </Form.Label>
             <Col sm="9">
               <Form.Control
-                name="password"
+                name="confirmPassword"
                 placeholder="Confirm password"
                 minLength="6"
                 type="password"
@@ -176,6 +197,7 @@ export const AdminRegForm = () => {
               />
             </Col>
           </Form.Group>
+          {passError && <Alert variant="danger"> {passError}</Alert>}
 
           <Button type="submit" variant="primary" type="submit">
             Register
