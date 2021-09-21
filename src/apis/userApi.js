@@ -15,3 +15,16 @@ export const createNewUser = async (userInfo) => {
     return { status: "error", message: error.message };
   }
 };
+export const verifyNewUserEmail = async (userInfo) => {
+  try {
+    const { data } = await axios.post(
+      userAPI + "/email-verification",
+      userInfo
+    );
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return { status: "error", message: error.message };
+  }
+};

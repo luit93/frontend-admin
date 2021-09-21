@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "../src/pages/login/Login";
 import PageNotFound from "../src/components/page-not-found/PageNotFound.js";
 import AdminRegistration from "../src/pages/admin-registration/AdminRegistration";
+import EmailVerification from "../src/pages/email-verification/EmailVerification";
 import { Button } from "react-bootstrap";
 function App() {
   return (
@@ -11,6 +12,9 @@ function App() {
         <Switch>
           <Route path="/registration">
             <AdminRegistration />
+          </Route>
+          <Route path="/email-verification">
+            <EmailVerification />
           </Route>
           <Route exact path="/">
             <Login />
