@@ -48,7 +48,7 @@ export const LoginForm = () => {
             />
           </Form.Group>
           <InputGroup className="mb-3 d-flex justify-content-center">
-            <InputGroup.Radio aria-label="Keep me signed in" />
+            <InputGroup.Checkbox aria-label="Keep me signed in" />
             <InputGroup.Text id="basic-addon1">
               Keep me signed in.
             </InputGroup.Text>
