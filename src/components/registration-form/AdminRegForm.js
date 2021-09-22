@@ -53,7 +53,7 @@ export const AdminRegForm = () => {
 
   return (
     <div>
-      <Card className="p-5 mt-5" style={{ width: "550px" }}>
+      <Card className="p-5 mt-5">
         <h1>Registration page</h1>
         <hr />
         {isPending && <Spinner variant="primary" animation="border" />}

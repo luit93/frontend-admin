@@ -1,0 +1,17 @@
+.sidebar-top {
+  font-size: 5rem;
+}
+
+ul li {
+  list-style: none;
+}
+
+ul li a {
+  text-decoration: none;
+}
+
+.menu-item {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}

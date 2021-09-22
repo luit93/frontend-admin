@@ -1,10 +1,11 @@
 import React from "react";
 import AdminRegForm from "../../components/registration-form/AdminRegForm";
+import AdminLayout from "../layout/AdminLayout";
 const AdminRegistration = () => {
   return (
-    <div className="d-flex justify-content-center mt-5 ">
+    <AdminLayout>
       <AdminRegForm />
-    </div>
+    </AdminLayout>
   );
 };
 
