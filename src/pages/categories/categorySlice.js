@@ -19,6 +19,10 @@ const catSlice = createSlice({
       state.isPending = false;
       state.categoryResponse = payload;
     },
+    deleteCatSuccess: (state, { payload }) => {
+      state.isPending = false;
+      state.categoryResponse = payload;
+    },
     reqFails: (state, { payload }) => {
       state.isPending = false;
       state.categoryResponse = payload;
@@ -27,6 +31,11 @@ const catSlice = createSlice({
 });
 
 const { reducer, actions } = catSlice;
-export const { addCatSuccess, reqPending, reqFails, fetchCategoriesSuccess } =
-  actions;
+export const {
+  deleteCatSuccess,
+  addCatSuccess,
+  reqPending,
+  reqFails,
+  fetchCategoriesSuccess,
+} = actions;
 export default reducer;
