@@ -6,40 +6,40 @@ const SideBarMenu = () => {
   return (
     <div className="sidebar">
       <div className="sidebar-top text-center">
-        <i class="fas fa-user"></i>
+        <i className="fas fa-user"></i>
       </div>
       <hr />
       <div className="side-bar-main">
         <ul>
           <li>
             <Link className="menu-item" to="/dashboard">
-              <i class="fas fa-tachometer-alt"></i> Dashboard
+              <i className="fas fa-tachometer-alt"></i> Dashboard
             </Link>
           </li>
           <li>
             <Link className="menu-item" to="/categories">
-              <i class="fas fa-sitemap"></i> Categories
+              <i className="fas fa-sitemap"></i> Categories
             </Link>
           </li>
           <li>
             <Link className="menu-item" to="/products">
-              <i class="fas fa-box-open"></i> Products
+              <i className="fas fa-box-open"></i> Products
             </Link>
           </li>
           <li>
             <Link className="menu-item" to="/orders">
-              <i class="fas fa-sort-amount-up-alt"></i> Orders
+              <i className="fas fa-sort-amount-up-alt"></i> Orders
             </Link>
           </li>
           <li>
             <Link className="menu-item" to="/customers">
-              <i class="fas fa-users"></i> Customers
+              <i className="fas fa-users"></i> Customers
             </Link>
           </li>
 
           <li>
             <Link className="menu-item" to="/payments">
-              <i class="far fa-credit-card"></i> Payments
+              <i className="far fa-credit-card"></i> Payments
             </Link>
           </li>
         </ul>
@@ -47,7 +47,7 @@ const SideBarMenu = () => {
         <ul>
           <li>
             <Link className="menu-item" to="/registration">
-              <i class="far fa-users"></i> Admin Users
+              <i className="far fa-users"></i> Admin Users
             </Link>
           </li>
         </ul>

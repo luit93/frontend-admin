@@ -1,27 +1,54 @@
-import React from "react";
-import { Form, Row, Col, Button, FloatingLabel } from "react-bootstrap";
+import React, { useState } from "react";
+import { Alert } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  Form,
+  Row,
+  Col,
+  Button,
+  FloatingLabel,
+  Spinner,
+} from "react-bootstrap";
+import { addNewCat } from "../../pages/categories/categoryAction";
+const initialState = {
+  name: "",
+  parentCat: "",
+};
 const AddCategoryForm = () => {
-  const categories = [
-    { _id: 1, name: "Grocery", parentCat: "" },
-    { _id: 2, name: "Dairy", parentCat: "1" },
-    { _id: 3, name: "Bakery", parentCat: "1" },
-    { _id: 4, name: "Electronics", parentCat: "" },
-    { _id: 5, name: "Laptop", parentCat: "3" },
-    { _id: 6, name: "Mobile", parentCat: "3" },
-    { _id: 7, name: "Furniture", parentCat: "" },
-  ];
+  const dispatch = useDispatch();
+  const { isPending, catList, categoryResponse } = useSelector(
+    (state) => state.category
+  );
+  const [newCat, setNewCat] = useState(initialState);
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setNewCat({
+      ...newCat,
+      [name]: value,
+    });
+  };
 
-  const handleOnChange = (e) => {};
-
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addNewCat(newCat));
+  };
   //parent cats only
-  const parentCatOnly = categories.filter((row) => !row.parentCat);
+  const parentCatOnly = catList.filter((row) => !row.parentCat);
 
   //child cats only
-  const childCat = categories.filter((row) => row.parentCat);
+  // const childCat = categories.filter((row) => row.parentCat);
 
   return (
     <div>
-      <Form>
+      {isPending && <Spinner variant="primary" animation="border" />}
+      {categoryResponse.message && (
+        <Alert
+          variant={categoryResponse.status === "success" ? "success" : "danger"}
+        >
+          {categoryResponse.message}
+        </Alert>
+      )}
+      <Form onSubmit={handleOnSubmit}>
         <Row>
           <Col md={5}>
             <FloatingLabel
@@ -41,7 +68,11 @@ const AddCategoryForm = () => {
               controlId="floatingSelect"
               label="Select parent category"
             >
-              <Form.Select aria-label="Floating label select example">
+              <Form.Select
+                onChange={handleOnChange}
+                name="parentCat"
+                aria-label="Floating label select example"
+              >
                 <option>Select main category</option>
                 {parentCatOnly.map((row, i) => (
                   <option key={row._id} value={row._id}>
