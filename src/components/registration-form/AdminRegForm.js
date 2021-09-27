@@ -199,7 +199,7 @@ export const AdminRegForm = () => {
           </Form.Group>
           {passError && <Alert variant="danger"> {passError}</Alert>}
 
-          <Button type="submit" variant="primary" type="submit">
+          <Button type="submit" variant="primary">
             Register
           </Button>
         </Form>

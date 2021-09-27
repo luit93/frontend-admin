@@ -1,11 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "../src/pages/login/Login";
 import PageNotFound from "../src/components/page-not-found/PageNotFound.js";
 import AdminRegistration from "../src/pages/admin-registration/AdminRegistration";
 import EmailVerification from "../src/pages/email-verification/EmailVerification";
 import Dashboard from "../src/pages/dashboard/Dashboard";
-import { Button } from "react-bootstrap";
 import Orders from "./pages/orders/Orders";
 import Payments from "./pages/payments/Payments";
 import Customers from "./pages/customers/Customers";

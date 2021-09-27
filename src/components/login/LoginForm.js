@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Row,
-  Col,
-  Button,
-  Spinner,
-  Alert,
-  Card,
-  InputGroup,
-  FormControl,
-} from "react-bootstrap";
+import { Form, Button, Card, InputGroup } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 export const LoginForm = () => {
   const history = useHistory();
