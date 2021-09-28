@@ -3,6 +3,7 @@ const initialState = {
   isPending: false,
   categoryResponse: {},
   catList: [],
+  selectedCat: {},
 };
 const catSlice = createSlice({
   name: "catSlice",
@@ -23,6 +24,17 @@ const catSlice = createSlice({
       state.isPending = false;
       state.categoryResponse = payload;
     },
+    updateCatSuccess: (state, { payload }) => {
+      state.isPending = false;
+      state.categoryResponse = payload;
+    },
+    onCategorySelect: (state, { payload }) => {
+      state.isPending = false;
+      state.selectedCat = payload;
+    },
+    onDeSelectCategory: (state) => {
+      state.selectedCat = {};
+    },
     reqFails: (state, { payload }) => {
       state.isPending = false;
       state.categoryResponse = payload;
@@ -37,5 +49,8 @@ export const {
   reqPending,
   reqFails,
   fetchCategoriesSuccess,
+  onCategorySelect,
+  onDeSelectCategory,
+  updateCatSuccess,
 } = actions;
 export default reducer;

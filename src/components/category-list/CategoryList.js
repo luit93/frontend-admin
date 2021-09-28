@@ -1,7 +1,10 @@
 import React from "react";
-import { ListGroup, Button, Spinner } from "react-bootstrap";
+import { ListGroup, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { categoryDelete } from "../../pages/categories/categoryAction";
+import { onCategorySelect } from "../../pages/categories/categorySlice";
+import EditCategoryForm from "../edit-category-form/EditCategoryForm";
+
 export const CategoryList = () => {
   const dispatch = useDispatch();
   const { isPending, catList } = useSelector((state) => state.category);
@@ -11,7 +14,7 @@ export const CategoryList = () => {
   const childCat = catList.filter((row) => row.parentCat);
   const handleOnDelete = (_id) => {
     //make sure we're not deleting any parentCat that has a childCat
-    const hasChildCat = childCat.some((item) => item.parentCat == _id);
+    const hasChildCat = childCat.some((item) => item.parentCat === _id);
     if (hasChildCat) {
       return alert(
         "This category has some child category. Remove them or reassign to another category before deleting."
@@ -26,18 +29,21 @@ export const CategoryList = () => {
   console.log(parentCatOnly, childCat);
   return (
     <div>
+      <EditCategoryForm />
       <ListGroup>
         {parentCatOnly?.length &&
           parentCatOnly.map((row) => {
             return (
-              <>
-                <ListGroup.Item
-                  key={row._id}
-                  className="d-flex justify-content-between"
-                >
+              <div key={row._id}>
+                <ListGroup.Item className="d-flex justify-content-between">
                   <span>{row.name}</span>
                   <span>
-                    <Button variant="primary">Edit</Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => dispatch(onCategorySelect(row))}
+                    >
+                      Edit
+                    </Button>
                     <Button
                       variant="danger"
                       style={{ marginleft: "1rem" }}
@@ -52,13 +58,15 @@ export const CategoryList = () => {
                   childCat.map(
                     (item) =>
                       item.parentCat === row._id && (
-                        <ListGroup.Item
-                          key={item._id}
-                          className="d-flex justify-content-between"
-                        >
+                        <ListGroup.Item className="d-flex justify-content-between">
                           <span> =&gt; {item.name}</span>
                           <span>
-                            <Button variant="primary">Edit</Button>
+                            <Button
+                              variant="primary"
+                              onClick={() => dispatch(onCategorySelect(item))}
+                            >
+                              Edit
+                            </Button>
                             <Button
                               variant="danger"
                               style={{ marginleft: "1rem" }}
@@ -70,7 +78,7 @@ export const CategoryList = () => {
                         </ListGroup.Item>
                       )
                   )}
-              </>
+              </div>
             );
           })}
       </ListGroup>
