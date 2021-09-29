@@ -1,12 +1,18 @@
 import React from "react";
 import { Form, Button, Card, InputGroup } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { adminLogin } from "../../pages/admin-user/userAction";
 export const LoginForm = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/dashboard";
   const handleOnChange = (e) => {};
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    history.push("/dashboard");
+    dispatch(adminLogin());
+    history.replace(from);
   };
   return (
     <div>

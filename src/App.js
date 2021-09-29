@@ -10,6 +10,7 @@ import Payments from "./pages/payments/Payments";
 import Customers from "./pages/customers/Customers";
 import Products from "./pages/products/Products";
 import Categories from "./pages/categories/Categories";
+import PrivateRoute from "./components/private-route/PrivateRoute";
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
           <Route path="/registration">
             <AdminRegistration />
           </Route>
-          <Route path="/dashboard">
+          <PrivateRoute path="/dashboard">
             <Dashboard />
-          </Route>
+          </PrivateRoute>
+
           <Route path="/orders">
             <Orders />
           </Route>

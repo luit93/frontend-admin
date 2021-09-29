@@ -4,6 +4,7 @@ const initialState = {
   isPending: false,
   userResp: {},
   emailVerificationResponse: {},
+  isLoggedIn: false,
 };
 const userSlice = createSlice({
   name: "userSlice",
@@ -24,6 +25,9 @@ const userSlice = createSlice({
       state.isPending = false;
       state.userResp = payload;
     },
+    logInSuccess: (state) => {
+      state.isLoggedIn = true;
+    },
   },
 });
 //reducer has default state and gets updated with new states
@@ -34,5 +38,6 @@ export const {
   resPending,
   resFail,
   emailVerificationSuccess,
+  logInSuccess,
 } = actions;
 export default reducer;
