@@ -28,3 +28,13 @@ export const verifyNewUserEmail = async (userInfo) => {
     return { status: "error", message: error.message };
   }
 };
+export const loginAdmin = async (userInfo) => {
+  try {
+    const { data } = await axios.post(userAPI + "/login", userInfo);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return { status: "error", message: error.message };
+  }
+};

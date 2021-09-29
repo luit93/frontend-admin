@@ -58,7 +58,10 @@ export const CategoryList = () => {
                   childCat.map(
                     (item) =>
                       item.parentCat === row._id && (
-                        <ListGroup.Item className="d-flex justify-content-between">
+                        <ListGroup.Item
+                          key={item._id}
+                          className="d-flex justify-content-between"
+                        >
                           <span> =&gt; {item.name}</span>
                           <span>
                             <Button

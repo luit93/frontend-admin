@@ -5,7 +5,11 @@ import {
   emailVerificationSuccess,
   logInSuccess,
 } from "./userSlice";
-import { createNewUser, verifyNewUserEmail } from "../../apis/userApi";
+import {
+  createNewUser,
+  verifyNewUserEmail,
+  loginAdmin,
+} from "../../apis/userApi";
 export const createUser = (userInfo) => async (dispatch) => {
   dispatch(resPending());
   //call api function
@@ -22,6 +26,13 @@ export const verifyEmail = (userInfo) => async (dispatch) => {
   dispatch(emailVerificationSuccess(result));
 };
 
-export const adminLogin = () => (dispatch) => {
-  dispatch(logInSuccess());
+export const adminLogin = (loginInfo) => async (dispatch) => {
+  dispatch(resPending());
+  // call api
+  const result = await loginAdmin(loginInfo);
+  if (result.status === "success") {
+    return dispatch(logInSuccess(result.user));
+  }
+
+  dispatch(resFail(result));
 };

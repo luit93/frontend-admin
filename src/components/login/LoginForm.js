@@ -1,23 +1,58 @@
-import React from "react";
-import { Form, Button, Card, InputGroup } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import {
+  Form,
+  Button,
+  Card,
+  InputGroup,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { adminLogin } from "../../pages/admin-user/userAction";
+const initialState = {
+  email: "bon4g@aa.com",
+  password: "3hhss3",
+};
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+  const { isPending, userResp, isLoggedIn } = useSelector(
+    (state) => state.user
+  );
   const from = location?.state?.from?.pathname || "/dashboard";
-  const handleOnChange = (e) => {};
+
+  const [loginInfo, setLoginInfo] = useState(initialState);
+
+  useEffect(() => {
+    isLoggedIn && history.replace(from);
+  }, [isLoggedIn, history, from]);
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setLoginInfo({
+      ...loginInfo,
+      [name]: value,
+    });
+  };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    dispatch(adminLogin());
+    if (!loginInfo.email || !loginInfo.password) {
+      return alert("Please input both email & password");
+    }
+    dispatch(adminLogin(loginInfo));
     history.replace(from);
   };
   return (
     <div>
       <Card className="p-5 mt-5" style={{ width: "550px" }}>
-        <h1>Login</h1>
+        <h1>Admin Login</h1>
+        {isPending && <Spinner variant="primary" animation="border" />}
+        {userResp?.message && (
+          <Alert variant={userResp.status === "success" ? "success" : "danger"}>
+            {userResp.message}
+          </Alert>
+        )}
         <hr />
         <Form onSubmit={handleOnSubmit} className="mb-3 justify-content-center">
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -25,8 +60,10 @@ export const LoginForm = () => {
             <Form.Control
               type="email"
               name="email"
-              // required
+              value={loginInfo.email}
+              required
               placeholder="Enter email"
+              onChange={handleOnChange}
             />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
@@ -38,7 +75,8 @@ export const LoginForm = () => {
             <Form.Control
               type="password"
               name="password"
-              // required
+              value={loginInfo.password}
+              required
               placeholder="Password"
               onChange={handleOnChange}
             />

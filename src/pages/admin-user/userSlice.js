@@ -25,8 +25,11 @@ const userSlice = createSlice({
       state.isPending = false;
       state.userResp = payload;
     },
-    logInSuccess: (state) => {
+    logInSuccess: (state, { payload }) => {
+      state.isPending = false;
+      state.userResp = {};
       state.isLoggedIn = true;
+      state.user = payload;
     },
   },
 });
