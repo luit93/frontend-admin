@@ -24,21 +24,21 @@ function App() {
             <Dashboard />
           </PrivateRoute>
 
-          <Route path="/orders">
+          <PrivateRoute path="/orders">
             <Orders />
-          </Route>
-          <Route path="/payments">
+          </PrivateRoute>
+          <PrivateRoute path="/payments">
             <Payments />
-          </Route>
-          <Route path="/customers">
+          </PrivateRoute>
+          <PrivateRoute path="/customers">
             <Customers />
-          </Route>
-          <Route path="/categories">
+          </PrivateRoute>
+          <PrivateRoute path="/categories">
             <Categories />
-          </Route>
-          <Route path="/products">
+          </PrivateRoute>
+          <PrivateRoute path="/products">
             <Products />
-          </Route>
+          </PrivateRoute>
           <Route path="/email-verification">
             <EmailVerification />
           </Route>

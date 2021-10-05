@@ -5,6 +5,7 @@ const initialState = {
   userResp: {},
   emailVerificationResponse: {},
   isLoggedIn: false,
+  user: {},
 };
 const userSlice = createSlice({
   name: "userSlice",
@@ -25,11 +26,18 @@ const userSlice = createSlice({
       state.isPending = false;
       state.userResp = payload;
     },
+    autoLogin: (state) => {
+      state.isLoggedIn = true;
+    },
     logInSuccess: (state, { payload }) => {
       state.isPending = false;
       state.userResp = {};
       state.isLoggedIn = true;
       state.user = payload;
+    },
+    logOutUserSuccess: (state) => {
+      state.isLoggedIn = false;
+      state.user = {};
     },
   },
 });
@@ -42,5 +50,7 @@ export const {
   resFail,
   emailVerificationSuccess,
   logInSuccess,
+  autoLogin,
+  logOutUserSuccess,
 } = actions;
 export default reducer;

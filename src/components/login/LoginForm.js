@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { adminLogin } from "../../pages/admin-user/userAction";
+import { adminLogin, autoLoginAction } from "../../pages/admin-user/userAction";
 const initialState = {
   email: "bon4g@aa.com",
   password: "3hhss3",
@@ -26,6 +26,7 @@ export const LoginForm = () => {
   const [loginInfo, setLoginInfo] = useState(initialState);
 
   useEffect(() => {
+    !isLoggedIn && dispatch(autoLoginAction());
     isLoggedIn && history.replace(from);
   }, [isLoggedIn, history, from]);
   const handleOnChange = (e) => {
