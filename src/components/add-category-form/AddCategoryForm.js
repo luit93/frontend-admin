@@ -38,11 +38,13 @@ const AddCategoryForm = () => {
   return (
     <div>
       {isPending && <Spinner variant="primary" animation="border" />}
-      {categoryResponse.message && (
+      {categoryResponse?.message && (
         <Alert
-          variant={categoryResponse.status === "success" ? "success" : "danger"}
+          variant={
+            categoryResponse?.status === "success" ? "success" : "danger"
+          }
         >
-          {categoryResponse.message}
+          {categoryResponse?.message}
         </Alert>
       )}
       <Form onSubmit={handleOnSubmit}>

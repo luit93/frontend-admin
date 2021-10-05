@@ -9,12 +9,12 @@ export const CategoryList = () => {
   const dispatch = useDispatch();
   const { isPending, catList } = useSelector((state) => state.category);
   //parent cats only
-  const parentCatOnly = catList.filter((row) => !row.parentCat);
+  const parentCatOnly = catList?.filter((row) => !row.parentCat);
   //child cats only
-  const childCat = catList.filter((row) => row.parentCat);
+  const childCat = catList?.filter((row) => row.parentCat);
   const handleOnDelete = (_id) => {
     //make sure we're not deleting any parentCat that has a childCat
-    const hasChildCat = childCat.some((item) => item.parentCat === _id);
+    const hasChildCat = childCat?.some((item) => item.parentCat === _id);
     if (hasChildCat) {
       return alert(
         "This category has some child category. Remove them or reassign to another category before deleting."

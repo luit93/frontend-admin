@@ -12,9 +12,11 @@ const catSlice = createSlice({
     reqPending: (state) => {
       state.isPending = true;
     },
-    fetchCategoriesSuccess: (state, { payload = [] }) => {
+    fetchCategoriesSuccess: (state, { payload }) => {
       state.isPending = false;
-      state.catList = payload;
+      state.catList = payload.categories;
+      // state.categoryResponse.status = payload.status;
+      // state.categoryResponse.message = payload?.message;
     },
     addCatSuccess: (state, { payload }) => {
       state.isPending = false;
