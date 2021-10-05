@@ -11,6 +11,7 @@ import Customers from "./pages/customers/Customers";
 import Products from "./pages/products/Products";
 import Categories from "./pages/categories/Categories";
 import PrivateRoute from "./components/private-route/PrivateRoute";
+import AdminProfile from "./pages/admin-profile/AdminProfile";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/customers">
             <Customers />
+          </PrivateRoute>
+          <PrivateRoute path="/admin-profile">
+            <AdminProfile />
           </PrivateRoute>
           <PrivateRoute path="/categories">
             <Categories />

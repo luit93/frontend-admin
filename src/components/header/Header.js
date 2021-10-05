@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { userLogOut } from "../../pages/admin-user/userAction";
+import {Link} from 'react-router-dom'
 const Header = () => {
   const dispatch = useDispatch();
   return (
@@ -12,6 +13,11 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+            <Nav.Link
+                href="/admin-profile"
+               
+                <i class="fas fa-user-cog"></i>
+             > </Nav.Link>
               <Nav.Link
                 href="#"
                 onClick={() => {
