@@ -38,3 +38,17 @@ export const loginAdmin = async (userInfo) => {
     return { status: "error", message: error.message };
   }
 };
+export const fetchUserProfile = async (userInfo) => {
+  try {
+    const { data } = await axios.get(userAPI, {
+      headers: {
+        Authorization: window.sessionStorage.getItem("accessJWT"),
+      },
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data;
+  }
+};

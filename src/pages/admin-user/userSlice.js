@@ -39,6 +39,12 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
       state.user = {};
     },
+    getAdminProfile: (state, { payload = {} }) => {
+      console.log(payload);
+      if (payload) {
+        state.user = payload;
+      }
+    },
   },
 });
 //reducer has default state and gets updated with new states
@@ -52,5 +58,6 @@ export const {
   logInSuccess,
   autoLogin,
   logOutUserSuccess,
+  getAdminProfile,
 } = actions;
 export default reducer;

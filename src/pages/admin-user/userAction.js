@@ -6,13 +6,15 @@ import {
   logInSuccess,
   autoLogin,
   logOutUserSuccess,
+  getAdminProfile,
 } from "./userSlice";
 import {
   createNewUser,
   verifyNewUserEmail,
   loginAdmin,
+  fetchUserProfile,
 } from "../../apis/userApi";
-
+import { getCategories } from "../categories/categoryAction";
 import { newAccessJWT } from "../../apis/tokenApi";
 export const createUser = (userInfo) => async (dispatch) => {
   dispatch(resPending());
@@ -55,8 +57,7 @@ export const autoLoginAction = () => async (dispatch) => {
   //2. when we have refreshtoken & not accesstoken
   if (!accessJWT && refreshJWT) {
     const data = await newAccessJWT();
-    if (data?.accessJWT) {
-      window.sessionStorage.setItem("accessJWT", data.accessJWT);
+    if (data) {
       dispatch(autoLogin());
     }
   }
@@ -69,4 +70,25 @@ export const userLogOut = () => (dispatch) => {
   //logout from server by removing tokens from database
 
   dispatch(logOutUserSuccess());
+};
+
+export const getUserProfile = () => async (dispatch) => {
+  dispatch(resPending());
+  //call api to get user profile
+  const result = await fetchUserProfile();
+  if (result.message === "jwt expired") {
+    const token = await newAccessJWT();
+    console.log("time to request new jwt");
+    //re auth
+    if (token) {
+      dispatch(getUserProfile());
+    } else {
+      dispatch(userLogOut());
+    }
+  }
+
+  if (result.status === "success") {
+    return result.user && dispatch(getAdminProfile(result.user));
+  }
+  dispatch(resFail(result));
 };
