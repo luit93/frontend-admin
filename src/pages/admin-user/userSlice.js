@@ -39,11 +39,13 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
       state.user = {};
     },
+    updateAdminProfile: (state, { payload } = {}) => {
+      state.isLoggedIn = false;
+      state.userResp = payload;
+    },
     getAdminProfile: (state, { payload = {} }) => {
-      console.log(payload);
-      if (payload) {
-        state.user = payload;
-      }
+      state.isPending = false;
+      state.user = payload;
     },
   },
 });
@@ -59,5 +61,6 @@ export const {
   autoLogin,
   logOutUserSuccess,
   getAdminProfile,
+  updateAdminProfile,
 } = actions;
 export default reducer;

@@ -52,3 +52,17 @@ export const fetchUserProfile = async (userInfo) => {
     return error.response.data;
   }
 };
+export const updateUserProfile = async (obj) => {
+  try {
+    const { data } = await axios.put(userAPI, obj, {
+      headers: {
+        Authorization: window.sessionStorage.getItem("accessJWT"),
+      },
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data || error.message;
+  }
+};

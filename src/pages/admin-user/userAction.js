@@ -7,12 +7,14 @@ import {
   autoLogin,
   logOutUserSuccess,
   getAdminProfile,
+  updateAdminProfile,
 } from "./userSlice";
 import {
   createNewUser,
   verifyNewUserEmail,
   loginAdmin,
   fetchUserProfile,
+  updateUserProfile,
 } from "../../apis/userApi";
 import { getCategories } from "../categories/categoryAction";
 import { newAccessJWT } from "../../apis/tokenApi";
@@ -89,6 +91,29 @@ export const getUserProfile = () => async (dispatch) => {
 
   if (result.status === "success") {
     return result.user && dispatch(getAdminProfile(result.user));
+  }
+  dispatch(resFail(result));
+};
+
+export const updateUserProfileAction = (obj) => async (dispatch) => {
+  dispatch(resPending());
+  //call api to get user profile
+  const result = await updateUserProfile(obj);
+  if (result.message === "jwt expired") {
+    const token = await newAccessJWT();
+    console.log("time to request new jwt");
+    //re auth
+    if (token) {
+      dispatch(updateUserProfileAction());
+    } else {
+      dispatch(userLogOut());
+    }
+  }
+
+  if (result.status === "success") {
+    result.user && dispatch(updateAdminProfile(result));
+    dispatch(getUserProfile());
+    return;
   }
   dispatch(resFail(result));
 };

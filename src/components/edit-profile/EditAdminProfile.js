@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { updateUserProfileAction } from "../../pages/admin-user/userAction";
 import {
   Row,
   Card,
@@ -8,17 +9,21 @@ import {
   Col,
   Alert,
   InputGroup,
+  Spinner,
 } from "react-bootstrap";
 
 const EditAdminProfile = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { isPending, userResp, user } = useSelector((state) => state.user);
   const [userInfo, setUserInfo] = useState(user);
   useEffect(() => {
     setUserInfo(user);
   }, [user]);
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const { fname, lname, dob, phone, address, gender } = userInfo;
+    const obj = { fname, lname, dob, phone, address, gender };
+    dispatch(updateUserProfileAction(obj));
   };
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +35,12 @@ const EditAdminProfile = () => {
 
   return (
     <div>
+      {isPending && <Spinner variant="primary" animation="border" />}
+      {userResp?.message && (
+        <Alert variant={userResp?.status === "success" ? "success" : "danger"}>
+          {userResp?.message}
+        </Alert>
+      )}
       <Card className="p-5 mt-5">
         {/* {isPending && <Spinner variant="primary" animation="border" />}
         {userResp?.message && (
@@ -75,6 +86,7 @@ const EditAdminProfile = () => {
                 name="dob"
                 placeholder="dd/mm/yy"
                 type="date"
+                value={userInfo.dob ? userInfo.dob.substr(0, 10) : undefined}
                 onChange={handleOnChange}
               />
             </Col>
@@ -115,6 +127,7 @@ const EditAdminProfile = () => {
                   name="gender"
                   aria-label="Male"
                   value="male"
+                  checked={userInfo.gender === "male"}
                   onChange={handleOnChange}
                 />
                 <Form.Label>Male</Form.Label>
@@ -123,6 +136,7 @@ const EditAdminProfile = () => {
                   name="gender"
                   aria-label="Female"
                   value="female"
+                  checked={userInfo.gender === "female"}
                   onChange={handleOnChange}
                 />
                 <Form.Label>Female</Form.Label>
@@ -137,10 +151,11 @@ const EditAdminProfile = () => {
               <Form.Control
                 name="email"
                 type="email"
-                value={userInfo.email}
                 placeholder="mail@me"
+                value={userInfo.email}
                 required
-                onChange={handleOnChange}
+                // onChange={handleOnChange}
+                disabled
               />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
