@@ -66,3 +66,16 @@ export const updateUserProfile = async (obj) => {
     return error.response.data || error.message;
   }
 };
+export const updateUserPassword = async (obj) => {
+  try {
+    const { data } = await axios.patch(userAPI, obj, {
+      headers: {
+        Authorization: window.sessionStorage.getItem("accessJWT"),
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data || error.message;
+  }
+};

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../../pages/admin-user/userAction";
 import AdminLayOut from "../../pages/layout/AdminLayout";
 import EditAdminProfile from "../../components/edit-profile/EditAdminProfile";
+import { UpdateAdminPassword } from "../../components/edit-profile/UpdatePassword";
 const AdminProfile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -18,7 +19,10 @@ const AdminProfile = () => {
 
         <EditAdminProfile />
       </div>
-      <div className="update-password-form">password update</div>
+      <div className="update-password-form">
+        <h2>password update</h2>
+        <UpdateAdminPassword />
+      </div>
     </AdminLayOut>
   );
 };

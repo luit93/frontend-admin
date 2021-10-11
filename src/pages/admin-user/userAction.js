@@ -8,6 +8,7 @@ import {
   logOutUserSuccess,
   getAdminProfile,
   updateAdminProfile,
+  updateAdminPassword,
 } from "./userSlice";
 import {
   createNewUser,
@@ -15,6 +16,7 @@ import {
   loginAdmin,
   fetchUserProfile,
   updateUserProfile,
+  updateUserPassword,
 } from "../../apis/userApi";
 import { getCategories } from "../categories/categoryAction";
 import { newAccessJWT } from "../../apis/tokenApi";
@@ -104,7 +106,7 @@ export const updateUserProfileAction = (obj) => async (dispatch) => {
     console.log("time to request new jwt");
     //re auth
     if (token) {
-      dispatch(updateUserProfileAction());
+      dispatch(updateUserProfileAction(obj));
     } else {
       dispatch(userLogOut());
     }
@@ -113,6 +115,27 @@ export const updateUserProfileAction = (obj) => async (dispatch) => {
   if (result.status === "success") {
     result.user && dispatch(updateAdminProfile(result));
     dispatch(getUserProfile());
+    return;
+  }
+  dispatch(resFail(result));
+};
+export const updateUserPasswordAction = (obj) => async (dispatch) => {
+  dispatch(resPending());
+  //call api to get user profile
+  const result = await updateUserPassword(obj);
+  if (result.message === "jwt expired") {
+    const token = await newAccessJWT();
+    console.log("time to request new jwt");
+    //re auth
+    if (token) {
+      dispatch(updateUserPasswordAction(obj));
+    } else {
+      dispatch(userLogOut());
+    }
+  }
+
+  if (result.status === "success") {
+    result.user && dispatch(updateAdminPassword(result));
     return;
   }
   dispatch(resFail(result));

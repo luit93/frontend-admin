@@ -162,21 +162,6 @@ const EditAdminProfile = () => {
               </Form.Text>
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="mb-3 mt-3">
-            <Form.Label column sm="3">
-              Password *
-            </Form.Label>
-            <Col sm="9">
-              <Form.Control
-                name="password"
-                placeholder="Password"
-                type="password"
-                minLength="6"
-                required
-                onChange={handleOnChange}
-              />
-            </Col>
-          </Form.Group>
 
           <Button type="submit" variant="primary">
             Update
