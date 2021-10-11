@@ -9,6 +9,7 @@ import {
   getAdminProfile,
   updateAdminProfile,
   updateAdminPassword,
+  requestOTPSuccess,
 } from "./userSlice";
 import {
   createNewUser,
@@ -17,9 +18,10 @@ import {
   fetchUserProfile,
   updateUserProfile,
   updateUserPassword,
+  resetUserPassword,
 } from "../../apis/userApi";
 import { getCategories } from "../categories/categoryAction";
-import { newAccessJWT } from "../../apis/tokenApi";
+import { newAccessJWT, requestpasswordResetOTP } from "../../apis/tokenApi";
 export const createUser = (userInfo) => async (dispatch) => {
   dispatch(resPending());
   //call api function
@@ -40,7 +42,6 @@ export const adminLogin = (loginInfo) => async (dispatch) => {
   dispatch(resPending());
   // call api
   const result = await loginAdmin(loginInfo);
-  console.log(result);
   if (result.status === "success") {
     window.sessionStorage.setItem("accessJWT", result.tokens?.accessJWT);
     window.localStorage.setItem("refreshJWT", result.tokens?.refreshJWT);
@@ -139,4 +140,19 @@ export const updateUserPasswordAction = (obj) => async (dispatch) => {
     return;
   }
   dispatch(resFail(result));
+};
+
+export const requestOTPAction = (email) => async (dispatch) => {
+  dispatch(resPending());
+  const data = await requestpasswordResetOTP({ email });
+  data.status === "success"
+    ? dispatch(requestOTPSuccess({ data, email }))
+    : dispatch(resFail(data));
+};
+export const resetPasswordAction = (obj) => async (dispatch) => {
+  dispatch(resPending());
+  const data = await resetUserPassword(obj);
+  data.status === "success"
+    ? dispatch(updateAdminPassword(data))
+    : dispatch(resFail(data));
 };

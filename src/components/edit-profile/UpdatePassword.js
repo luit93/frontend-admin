@@ -49,7 +49,7 @@ export const UpdateAdminPassword = () => {
       const hasNumber = /[0-9]/.test(value);
       const hasUpper = /[A-Z]/.test(value);
       const hasLower = /[a-z]/.test(value);
-      const hasSymbol = /[% ,^ ,! ,@, #, $,/]/.test(value);
+      const hasSymbol = /[% ,^ ,! ,@, #, $,/,*]/.test(value);
       const isLenghty = value.length > 6;
 
       setPassError({
@@ -168,7 +168,7 @@ export const UpdateAdminPassword = () => {
                 <ListGroup.Item
                   variant={passError.hasSymbol ? "success" : "danger"}
                 >
-                  Atleast 1 of the following: % ^ ! @ # $
+                  Atleast 1 of the following: % ^ ! @ # $ *
                 </ListGroup.Item>
               </ListGroup>
             </Col>

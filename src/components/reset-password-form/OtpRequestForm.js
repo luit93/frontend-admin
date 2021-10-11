@@ -9,11 +9,12 @@ import {
 } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { adminLogin, autoLoginAction } from "../../pages/admin-user/userAction";
-const initialState = {
-  email: "bon4g@aa.com",
-  password: "3hhss3",
-};
+import {
+  adminLogin,
+  autoLoginAction,
+  requestOTPAction,
+} from "../../pages/admin-user/userAction";
+
 export const OtpRequestForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,26 +24,19 @@ export const OtpRequestForm = () => {
   );
   const from = location?.state?.from?.pathname || "/dashboard";
 
-  const [loginInfo, setLoginInfo] = useState(initialState);
+  const [email, setEmail] = useState("initialState");
 
-  useEffect(() => {
-    !isLoggedIn && dispatch(autoLoginAction());
-    isLoggedIn && history.replace(from);
-  }, [isLoggedIn, history, from]);
+  // useEffect(() => {
+  //   !isLoggedIn && dispatch(autoLoginAction());
+  //   isLoggedIn && history.replace(from);
+  // }, [isLoggedIn, history, from]);
   const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setLoginInfo({
-      ...loginInfo,
-      [name]: value,
-    });
+    const { value } = e.target;
+    setEmail(value);
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (!loginInfo.email || !loginInfo.password) {
-      return alert("Please input both email & password");
-    }
-    dispatch(adminLogin(loginInfo));
-    history.replace(from);
+    email && dispatch(requestOTPAction(email));
   };
   return (
     <div>
@@ -61,7 +55,6 @@ export const OtpRequestForm = () => {
             <Form.Control
               type="email"
               name="email"
-              value={loginInfo.email}
               required
               placeholder="Enter email"
               onChange={handleOnChange}
@@ -71,28 +64,14 @@ export const OtpRequestForm = () => {
             </Form.Text>
           </Form.Group>
 
-          <InputGroup className="mb-3 d-flex justify-content-center">
-            <InputGroup.Checkbox aria-label="Keep me signed in" />
-            <InputGroup.Text id="basic-addon1">
-              Keep me signed in.
-            </InputGroup.Text>
-
-            {/* <FormControl aria-label="Text input with radio button" /> */}
-          </InputGroup>
-          {/* <Form.Group className="mb-3 justify-content-center">
-            <Form.Check type="checkbox" label="keep me logged in" />
-          </Form.Group> */}
           <Button
             variant="primary"
             className="justify-content-center"
             type="submit"
           >
-            Log In
+            Request OTP
           </Button>
         </Form>
-        <a className="mt-2 text-end" href="/reset-password">
-          Forgot password?
-        </a>
       </Card>
     </div>
   );

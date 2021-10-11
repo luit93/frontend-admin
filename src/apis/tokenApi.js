@@ -23,3 +23,12 @@ export const newAccessJWT = async () => {
     return false;
   }
 };
+export const requestpasswordResetOTP = async (email) => {
+  try {
+    //request new token from server
+    const { data } = await axios.post(tokenAPI + "/request-otp", email);
+    return data;
+  } catch (error) {
+    return { status: "error", message: error.message };
+  }
+};

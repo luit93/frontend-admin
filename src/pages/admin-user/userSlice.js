@@ -7,6 +7,7 @@ const initialState = {
   isLoggedIn: false,
   user: {},
   showResetPassForm: false,
+  passResetEmail: "",
 };
 const userSlice = createSlice({
   name: "userSlice",
@@ -44,6 +45,12 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
       state.userResp = payload;
     },
+    requestOTPSuccess: (state, { payload } = {}) => {
+      state.isPending = false;
+      state.userResp = payload;
+      state.showResetPassForm = true;
+      state.passResetEmail = payload.email;
+    },
     updateAdminPassword: (state, { payload } = {}) => {
       state.isPending = false;
       state.userResp = payload;
@@ -72,5 +79,6 @@ export const {
   updateAdminProfile,
   updateAdminPassword,
   togglePasswordResetForm,
+  requestOTPSuccess,
 } = actions;
 export default reducer;
