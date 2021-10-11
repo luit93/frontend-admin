@@ -14,7 +14,7 @@ const initialState = {
   email: "bon4g@aa.com",
   password: "3hhss3",
 };
-export const LoginForm = () => {
+export const OtpRequestForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -47,7 +47,7 @@ export const LoginForm = () => {
   return (
     <div>
       <Card className="p-5 mt-5" style={{ width: "550px" }}>
-        <h1>Admin Login</h1>
+        <h1>Request OTP</h1>
         {isPending && <Spinner variant="primary" animation="border" />}
         {userResp?.message && (
           <Alert variant={userResp.status === "success" ? "success" : "danger"}>
@@ -71,17 +71,6 @@ export const LoginForm = () => {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password *</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              value={loginInfo.password}
-              required
-              placeholder="Password"
-              onChange={handleOnChange}
-            />
-          </Form.Group>
           <InputGroup className="mb-3 d-flex justify-content-center">
             <InputGroup.Checkbox aria-label="Keep me signed in" />
             <InputGroup.Text id="basic-addon1">
@@ -109,4 +98,4 @@ export const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default OtpRequestForm;

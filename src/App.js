@@ -13,6 +13,7 @@ import Categories from "./pages/categories/Categories";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
 import { Link } from "react-router-dom";
+import ResetPassword from "./pages/reset-password/ResetPassword";
 
 function App() {
   return (
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <Login />
+          </Route>
+          <Route exact path="/reset-password">
+            <ResetPassword />
           </Route>
           <Route exact path="*">
             <PageNotFound />
