@@ -38,3 +38,52 @@ export const loginAdmin = async (userInfo) => {
     return { status: "error", message: error.message };
   }
 };
+export const fetchUserProfile = async (userInfo) => {
+  try {
+    const { data } = await axios.get(userAPI, {
+      headers: {
+        Authorization: window.sessionStorage.getItem("accessJWT"),
+      },
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data;
+  }
+};
+export const updateUserProfile = async (obj) => {
+  try {
+    const { data } = await axios.put(userAPI, obj, {
+      headers: {
+        Authorization: window.sessionStorage.getItem("accessJWT"),
+      },
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data || error.message;
+  }
+};
+export const updateUserPassword = async (obj) => {
+  try {
+    const { data } = await axios.patch(userAPI, obj, {
+      headers: {
+        Authorization: window.sessionStorage.getItem("accessJWT"),
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data || error.message;
+  }
+};
+export const resetUserPassword = async (obj) => {
+  try {
+    const { data } = await axios.patch(userAPI + "/reset-password", obj);
+    return data;
+  } catch (error) {
+    return { status: "error", message: error.message };
+  }
+};

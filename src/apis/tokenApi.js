@@ -14,11 +14,21 @@ export const newAccessJWT = async () => {
     };
     //request new token from server
     const { data } = await axios.get(tokenAPI, config);
+    console.log(data);
     //set new token in the session
     data && window.sessionStorage.setItem("accessJWT", data.accessJWT);
     return window.sessionStorage.getItem("accessJWT");
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
     return false;
+  }
+};
+export const requestpasswordResetOTP = async (email) => {
+  try {
+    //request new token from server
+    const { data } = await axios.post(tokenAPI + "/request-otp", email);
+    return data;
+  } catch (error) {
+    return { status: "error", message: error.message };
   }
 };

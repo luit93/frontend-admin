@@ -11,8 +11,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { adminLogin, autoLoginAction } from "../../pages/admin-user/userAction";
 const initialState = {
-  email: "bon4g@aa.com",
-  password: "3hhss3",
+  email: "luitg@aa.com",
+  password: "1234Aa/",
 };
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -101,6 +101,9 @@ export const LoginForm = () => {
             Log In
           </Button>
         </Form>
+        <a className="mt-2 text-end" href="/reset-password">
+          Forgot password?
+        </a>
       </Card>
     </div>
   );

@@ -12,6 +12,11 @@ import Products from "./pages/products/Products";
 import Categories from "./pages/categories/Categories";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
+<<<<<<< HEAD
+=======
+import { Link } from "react-router-dom";
+import ResetPassword from "./pages/reset-password/ResetPassword";
+>>>>>>> admin-profile
 
 function App() {
   return (
@@ -43,11 +48,17 @@ function App() {
           <PrivateRoute path="/products">
             <Products />
           </PrivateRoute>
+          <PrivateRoute path="/admin-profile">
+            <AdminProfile />
+          </PrivateRoute>
           <Route path="/email-verification">
             <EmailVerification />
           </Route>
           <Route exact path="/">
             <Login />
+          </Route>
+          <Route exact path="/reset-password">
+            <ResetPassword />
           </Route>
           <Route exact path="*">
             <PageNotFound />
