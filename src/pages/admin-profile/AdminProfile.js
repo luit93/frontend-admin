@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-
-import { AdminLayOut } from "../../pages/layout/";
-const AdminProfile = () => {
-  return <AdminLayOut></AdminLayOut>;
-=======
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../../pages/admin-user/userAction";
@@ -32,7 +25,6 @@ const AdminProfile = () => {
       </div>
     </AdminLayOut>
   );
->>>>>>> admin-profile
 };
 
 export default AdminProfile;

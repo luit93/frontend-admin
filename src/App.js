@@ -12,11 +12,8 @@ import Products from "./pages/products/Products";
 import Categories from "./pages/categories/Categories";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
-<<<<<<< HEAD
-=======
 import { Link } from "react-router-dom";
 import ResetPassword from "./pages/reset-password/ResetPassword";
->>>>>>> admin-profile
 
 function App() {
   return (

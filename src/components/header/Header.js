@@ -3,10 +3,6 @@ import { useDispatch } from "react-redux";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { userLogOut } from "../../pages/admin-user/userAction";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-=======
-
->>>>>>> admin-profile
 const Header = () => {
   const dispatch = useDispatch();
   return (
