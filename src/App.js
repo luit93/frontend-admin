@@ -14,7 +14,8 @@ import PrivateRoute from "./components/private-route/PrivateRoute";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
 import { Link } from "react-router-dom";
 import ResetPassword from "./pages/reset-password/ResetPassword";
-
+import AddProductForm from "./components/add-product/AddProductForm";
+import AddProduct from "./pages/products/AddProduct";
 function App() {
   return (
     <div className="App">
@@ -42,8 +43,11 @@ function App() {
           <PrivateRoute path="/categories">
             <Categories />
           </PrivateRoute>
-          <PrivateRoute path="/products">
+          <PrivateRoute exact path="/products">
             <Products />
+          </PrivateRoute>
+          <PrivateRoute exact path="/products/new">
+            <AddProduct />
           </PrivateRoute>
           <PrivateRoute path="/admin-profile">
             <AdminProfile />
