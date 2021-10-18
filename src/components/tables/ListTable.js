@@ -3,8 +3,10 @@ import { Table, Button } from "react-bootstrap";
 import {
   getProductAction,
   deleteProductAction,
+  getSingleProductAction,
 } from "../../pages/products/productAction";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 const ListTable = () => {
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
@@ -40,7 +42,9 @@ const ListTable = () => {
                 <td>{row.price}</td>
                 <td>{row.qty}</td>
                 <td>
-                  <Button variant="info">Edit</Button>
+                  <Link to={`/products/${row.slug}`}>
+                    <Button variant="info">Edit</Button>
+                  </Link>
                 </td>
                 <td>
                   <Button

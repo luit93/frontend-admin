@@ -5,11 +5,13 @@ import {
   getSingleProduct,
   deleteProdSuccess,
   addProdSuccess,
+  updateProdSuccess,
 } from "./productSlice";
 import {
   fetchProducts,
   deleteProduct,
   addProduct,
+  updateProduct,
 } from "../../apis/productApi";
 import { newAccessJWT } from "../../apis/tokenApi";
 import { userLogOut } from "../admin-user/userAction";
@@ -29,6 +31,23 @@ export const getProductAction = () => async (dispatch) => {
   }
   data.status === "success"
     ? dispatch(getProducts(data.result))
+    : dispatch(resFail(data));
+};
+export const getSingleProductAction = (slug) => async (dispatch) => {
+  dispatch(resPending());
+  const data = await fetchProducts(slug);
+  if (data.message === "jwt expired") {
+    const token = await newAccessJWT();
+    console.log("time to request new jwt");
+    //re auth
+    if (token) {
+      dispatch(getSingleProductAction(slug));
+    } else {
+      dispatch(userLogOut());
+    }
+  }
+  data.status === "success"
+    ? dispatch(getSingleProduct(data.result))
     : dispatch(resFail(data));
 };
 export const deleteProductAction = (_id) => async (dispatch) => {
@@ -76,6 +95,31 @@ export const addProductAction = (prodInfo) => async (dispatch) => {
   if (data.status === "success") {
     dispatch(addProdSuccess(data));
     dispatch(getProductAction());
+    return;
+  }
+
+  dispatch(resFail(data));
+};
+export const updateProductAction = (slug, prodInfo) => async (dispatch) => {
+  dispatch(resPending());
+
+  const data = await updateProduct(prodInfo);
+
+  //=== re auth
+  if (data.message === "jwt expired") {
+    const token = await newAccessJWT();
+
+    if (token) {
+      dispatch(updateProductAction(prodInfo));
+    } else {
+      dispatch(userLogOut());
+    }
+  }
+  //====== re auth
+
+  if (data.status === "success") {
+    dispatch(updateProdSuccess(data));
+    dispatch(getSingleProductAction(slug));
     return;
   }
 

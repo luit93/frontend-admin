@@ -8,7 +8,7 @@ const productAPI = rootUrl + "/api/v1/product";
 export const fetchProducts = async (slug) => {
   try {
     const apiEndpoint = slug ? productAPI + "/" + slug : productAPI;
-    const { data } = await axios.get(productAPI, {
+    const { data } = await axios.get(apiEndpoint, {
       headers: {
         Authorization: window.sessionStorage.getItem("refreshJWT"),
       },
@@ -36,6 +36,19 @@ export const deleteProduct = async (_id) => {
 export const addProduct = async (prodInfo) => {
   try {
     const { data } = await axios.post(productAPI, prodInfo, {
+      headers: {
+        Authorization: window.localStorage.getItem("refreshJWT"),
+      },
+    });
+
+    return data;
+  } catch (error) {
+    return error.response?.data || { status: "error", message: error.message };
+  }
+};
+export const updateProduct = async (prodInfo) => {
+  try {
+    const { data } = await axios.put(productAPI, prodInfo, {
       headers: {
         Authorization: window.localStorage.getItem("refreshJWT"),
       },

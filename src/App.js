@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import ResetPassword from "./pages/reset-password/ResetPassword";
 import AddProductForm from "./components/add-product/AddProductForm";
 import AddProduct from "./pages/products/AddProduct";
+import EditProduct from "./pages/products/EditProduct";
 function App() {
   return (
     <div className="App">
@@ -48,6 +49,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute exact path="/products/new">
             <AddProduct />
+          </PrivateRoute>
+          <PrivateRoute exact path="/products/:slug">
+            <EditProduct />
           </PrivateRoute>
           <PrivateRoute path="/admin-profile">
             <AdminProfile />
