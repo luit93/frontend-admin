@@ -24,10 +24,12 @@ const ListTable = () => {
         <thead>
           <tr>
             <th>#</th>
+            <th>Thumbnail</th>
             <th>Status</th>
             <th>Title</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Brand</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -37,10 +39,21 @@ const ListTable = () => {
             productList.map((row, i) => (
               <tr key={row._id}>
                 <td>{i + 1}</td>
+                <td>
+                  {row.images?.length && (
+                    <img
+                      src={row.images[0]}
+                      alt="prod thumbnail"
+                      width="90px"
+                    />
+                  )}
+                </td>
                 <td>{row.status === true ? "Online" : "Offline"}</td>
                 <td>{row.title}</td>
                 <td>{row.price}</td>
+
                 <td>{row.qty}</td>
+                <td>{row.brand}</td>
                 <td>
                   <Link to={`/products/${row.slug}`}>
                     <Button variant="info">Edit</Button>

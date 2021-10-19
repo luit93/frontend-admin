@@ -19,7 +19,7 @@ export const getCategories = () => async (dispatch) => {
   //call api
   const result = await fetchCategory();
   console.log(result);
-  if (result.message === "jwt expired") {
+  if (result?.message === "jwt expired") {
     const token = await newAccessJWT();
     console.log("time to request new jwt");
     //re auth

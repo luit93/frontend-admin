@@ -18,7 +18,7 @@ export const fetchCategory = async () => {
     return data;
   } catch (error) {
     console.log(error);
-    return error.response.data;
+    return error.response?.data;
   }
 };
 
@@ -61,6 +61,6 @@ export const updateCategory = async (catObj) => {
     return data;
   } catch (error) {
     console.log(error);
-    return error.response.data;
+    return error.response.data || { status: "error", message: error.message };
   }
 };

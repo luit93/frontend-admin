@@ -6,15 +6,15 @@ import { addProductAction } from "../../pages/products/productAction";
 import ProductCatList from "../category-list/ProductCatList";
 const initialState = {
   status: true,
-  title: "apple ipad",
+  title: "",
   price: 500,
   qty: 50,
-  description: "Awesome tab",
-  categories: "electronics",
+  description: "",
+
   salePrice: 0,
   saleStartDate: "",
   saleEndDate: "",
-  brand: "apple",
+  brand: "",
 };
 const inputFields = [
   { label: "Title", name: "title", placeholder: "name", required: true },
@@ -54,6 +54,7 @@ const inputFields = [
     type: "file",
     multiple: true,
     accept: "image/*",
+    required: true,
   },
 ];
 const AddProductForm = () => {
@@ -62,10 +63,10 @@ const AddProductForm = () => {
   const [product, setProduct] = useState(initialState);
   const [prodCategory, setProdCategory] = useState([]);
   const [images, setImages] = useState([]);
+
   const handleOnSubmit = (e) => {
-    console.log("object");
     e.preventDefault();
-    debugger;
+    // debugger;
     const frmDt = new FormData();
 
     //append all the form state
@@ -77,14 +78,14 @@ const AddProductForm = () => {
 
     //append images
     images.length && [...images].map((img) => frmDt.append("images", img));
-    console.log(images, typeof images, "----");
+    // console.log(images, typeof images, "----");
     // dispatch(addProductAction({ ...product, categories: prodCategory }));
     dispatch(addProductAction(frmDt));
   };
 
   const handleOnChange = (e) => {
     const { checked, name, value, files } = e.target;
-    console.log(files);
+    // console.log(files);
     if (files) {
       return setImages(files);
     }
