@@ -48,20 +48,46 @@ const inputFields = [
   },
   { label: "Description", name: "description", as: "textarea", rows: 5 },
   { label: "Brand", name: "brand", placeholder: "brand name" },
+  {
+    label: "Select Images",
+    name: "images",
+    type: "file",
+    multiple: true,
+    accept: "image/*",
+  },
 ];
 const AddProductForm = () => {
   const dispatch = useDispatch();
   const { isPending, productResp } = useSelector((state) => state.product);
   const [product, setProduct] = useState(initialState);
   const [prodCategory, setProdCategory] = useState([]);
+  const [images, setImages] = useState([]);
   const handleOnSubmit = (e) => {
+    console.log("object");
     e.preventDefault();
-    dispatch(addProductAction({ ...product, categories: prodCategory }));
-    console.log("submittin ...", product);
+    debugger;
+    const frmDt = new FormData();
+
+    //append all the form state
+    for (const key in product) {
+      frmDt.append(key, product[key]);
+    }
+    //append categorie
+    frmDt.append("categories", prodCategory);
+
+    //append images
+    images.length && [...images].map((img) => frmDt.append("images", img));
+    console.log(images, typeof images, "----");
+    // dispatch(addProductAction({ ...product, categories: prodCategory }));
+    dispatch(addProductAction(frmDt));
   };
 
   const handleOnChange = (e) => {
-    const { checked, name, value } = e.target;
+    const { checked, name, value, files } = e.target;
+    console.log(files);
+    if (files) {
+      return setImages(files);
+    }
     if (name === "status") {
       return setProduct({
         ...product,
@@ -76,7 +102,7 @@ const AddProductForm = () => {
 
   const handleOnCatSelect = (e) => {
     const { checked, value } = e.target;
-    console.log(checked, value);
+    // console.log(checked, value);
     if (checked) {
       setProdCategory([...prodCategory, value]);
     } else {
@@ -118,6 +144,9 @@ const AddProductForm = () => {
             />
           </Col>
         </Form.Group>
+        {/* <Form.Group as={Row} className="mb-3">
+          <input type="file" name="" id="" multiple />
+        </Form.Group> */}
         <Button variant="success" type="submit">
           Add new product
         </Button>
